@@ -28,22 +28,35 @@
 		</header>
 		<section>
 			<article>
-				<h2>Webcam Capture</h2>
-				<canvas id="webcam" height="480" width="640"></canvas>
+				<h2>Status</h2>
+				<span id="status">testing...</span>
 			</article>
 		</section>
-		<script src="/js/webrtc_media/camera.js"></script>
+		<section>
+			<article>
+				<h2>Webcam Capture</h2>
+				<video id="webcam"></video>
+			</article>
+		</section>
+		<script src="/js/media.js"></script>
 		<script>
-			camera.init({
-				width: 640,
-				height: 480,
-				fps: 25,
-				targetCanvas: document.getElementById('webcam'),
+			media.init({
+				video: true,
+				audio: true,
+				handleStream: function(stream, src) {
+					document.getElementById("status").innerHTML = "Yeah, all done";
+					document.getElementById("webcam").src = src;
+					document.getElementById("webcam").play();
+					document.getElementById("webcam").volume = 0;
+				},
 				onError: function(error) {
-					alert("error: " + error);
+					document.getElementById("status").innerHTML = "ERROR: " + error;
+				},
+				onSupported: function() {
+					document.getElementById("status").innerHTML = "webrtc is supportet, waiting...";
 				},
 				onNotSupported: function() {
-					alert("not supported");
+					document.getElementById("status").innerHTML = "SORRY, you dosn't support WebRTC";
 				}
 			});
 		</script>
