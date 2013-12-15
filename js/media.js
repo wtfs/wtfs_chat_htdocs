@@ -52,7 +52,10 @@ var media = (function() {
 
 			options.video = options.video || false;
 			options.audio = options.audio || false;
-			options.screen = options.screen || false; //TODO: implement
+			if(options.screen) { //screensharing needs a special chrome video source and audio disabled
+				options.video = { mandatory: {chromeMediaSource: 'screen'} };
+				options.audio = false;
+			}
 
 			options.onError = options.onError || emptyFun;
 			options.onSupported = options.onSupported || emptyFun;
@@ -62,6 +65,10 @@ var media = (function() {
 
 			//do the real stuff
 			mediaInit();
+		},
+		getOptions: function() {
+			return options;
 		}
 	};
 })();
+

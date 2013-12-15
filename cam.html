@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" />
 		<title>wtfs open source video chat</title>
 		<meta name="language" content="en" />
 		<meta name="description" content="an open source video chat/conference solution, no extra plugins or extensions are required" />
@@ -17,8 +17,9 @@
 		<meta name="revisit" content="30 days" />
 		<meta name="revisit-after" content="30 days" />
 		<meta name="robots" content="index, follows" />
-		<link rel="stylesheet" type="text/css" href="/css/button.css" />
-		<link rel="stylesheet" type="text/css" href="/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="./css/button.css" />
+		<link rel="stylesheet" type="text/css" href="./css/browser.css" />
+		<link rel="stylesheet" type="text/css" href="./css/main.css" />
 	</head>
 	<body>
 		<header>
@@ -28,8 +29,14 @@
 		</header>
 		<section>
 			<article>
-				<h2>Status</h2>
-				<span id="status">testing...</span>
+				<h2>Options and Status</h2>
+				<p>Status: <span id="status">testing...</span></p>
+				<form><fieldset><legend>Options</legend>
+					<label for="cap_webcam">Capture webcam: </label><input onchange="init()" name="cap_media" id="cap_webcam" type="radio" /><br>
+					<label for="cap_audio">Capture audio: </label><input onchange="init()" name="cap_media" id="cap_audio" type="radio" /><br>
+					<label for="cap_webcam_audio">Capture video + audio: </label><input onchange="init()" name="cap_media" id="cap_webcam_audio" type="radio" checked="true"/><br>
+					<label for="cap_screen" class="chrome_only">Capture entire screen: </label><input onchange="init()" name="cap_media" id="cap_screen" type="radio" class="chrome_only" /><br>
+				</fieldset></form>
 			</article>
 		</section>
 		<section>
@@ -38,27 +45,33 @@
 				<video id="webcam"></video>
 			</article>
 		</section>
-		<script src="/js/media.js"></script>
+		<script src="./js/media.js"></script>
+		<script src="./js/browser.js"></script>
 		<script>
-			media.init({
-				video: true,
-				audio: true,
-				handleStream: function(stream, src) {
-					document.getElementById("status").innerHTML = "Yeah, all done";
-					document.getElementById("webcam").src = src;
-					document.getElementById("webcam").play();
-					document.getElementById("webcam").volume = 0;
-				},
-				onError: function(error) {
-					document.getElementById("status").innerHTML = "ERROR: " + error;
-				},
-				onSupported: function() {
-					document.getElementById("status").innerHTML = "webrtc is supportet, waiting...";
-				},
-				onNotSupported: function() {
-					document.getElementById("status").innerHTML = "SORRY, you dosn't support WebRTC";
-				}
-			});
+			browser_specific_stuff();
+			var init = function() {
+				media.init({
+					video: document.getElementById("cap_webcam").checked || document.getElementById("cap_webcam_audio").checked,
+					audio: document.getElementById("cap_audio").checked || document.getElementById("cap_webcam_audio").checked,
+					screen: document.getElementById("cap_screen").checked,
+					handleStream: function(stream, src) {
+						document.getElementById("status").innerHTML = "Yeah, all done";
+						document.getElementById("webcam").src = src;
+						document.getElementById("webcam").play();
+						document.getElementById("webcam").volume = 0;
+					},
+					onError: function(error) {
+						document.getElementById("status").innerHTML = "ERROR: " + error;
+					},
+					onSupported: function() {
+						document.getElementById("status").innerHTML = "webrtc is supported, waiting...";
+					},
+					onNotSupported: function() {
+						document.getElementById("status").innerHTML = "SORRY, WebRTC in't supported";
+					}
+				});
+			};
+			init();
 		</script>
 	</body>
 </html>
