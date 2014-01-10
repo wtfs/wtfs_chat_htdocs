@@ -1,6 +1,6 @@
 /******************************************************
  * author: Mr. Pi <mrpi@mr-pi.de>
- * copyright: 2013 Mr. Pi
+ * copyright: 2014 Mr. Pi
  *-----------------------------------------------------
  * the webrtc media stuff
  ******************************************************/
@@ -10,20 +10,6 @@ var media = (function() {
 	var src;
 	
 	function mediaInit() {
-		navigator.getUserMedia = //set correct user media prototype
-			navigator.getUserMedia ||
-			navigator.webkitGetUserMedia ||
-			navigator.mozGetUserMedia ||
-			navigator.oGetUserMedia || //TODO: function test
-			navigator.msGetUserMedia;
-
-		window.URL = //same for url, is needed for stream object
-			window.URL ||
-			window.webkitURL ||
-			window.mozURL ||
-			window.oURL || //TODO: function test
-			window.msURL;
-
 		if(navigator.getUserMedia) { //get user media
 			options.onSupported();
 
@@ -44,6 +30,9 @@ var media = (function() {
 
 
 	return {
+		test: function() {
+			if(navigator.getUserMedia) { return true; } else { return false; }
+		},
 		init: function(userOptions) {
 			var emptyFun = function(){};
 

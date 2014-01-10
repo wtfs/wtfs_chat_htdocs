@@ -6,10 +6,11 @@
  * ****************************************************/
 
 button {
+	outline: none;
 	margin-top: 2.5mm;
-	font-size: 0.75cm;
+	font-size: 7.5mm;
 	border-radius: 2.5mm;
-	display: block;
+	display: inline-block;
 	color: #050505;
 	padding: 1mm 2mm;
 	background: -moz-linear-gradient(
@@ -20,8 +21,8 @@ button {
 		#6d8000);
 	background: -webkit-gradient(
 		linear, left top, left bottom, 
-		from(#ffffff),
-		color-stop(0.50, #c7d95f),
+		from(#ddffcc),
+		color-stop(0.50, #b7d94f),
 		color-stop(0.50, #add136),
 		to(#6d8000));
 	border-radius: 2.5mm;
@@ -33,13 +34,20 @@ button {
 		-0.6mm -0.6mm 0px rgba(000,000,000,0.2),
 		0.6mm 0.6mm 0px rgba(255,255,255,0.4);
 }
+button.small {
+	font-size: 3.75mm;
+	font-style: italic;
+}
+	
 button:hover,
 button:focus {
+	outline: none;
 	box-shadow:
 		2mm 2mm 2mm rgba(000,000,000,0.5),
 		inset 0px 0px 6mm rgba(255,255,255,1);
 }
 button:active {
+	outline: none;
 	background: -moz-linear-gradient(
 		top,
 		#ffffff 0%,
