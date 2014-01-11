@@ -7,7 +7,7 @@
 
 var media = (function() {
 	var options;
-	var src;
+	var data = {stream: {}, src: undefined};
 	
 	function mediaInit() {
 		if(navigator.getUserMedia) { //get user media
@@ -17,11 +17,13 @@ var media = (function() {
 				video: options.video,
 				audio: options.audio
 			}, function(stream) {
-				src =	(window.URL && //generate media source url(blob)
-					 window.URL.createObjectURL(stream)) ||
-					 stream;
-				
-				options.handleStream(stream, src);
+				data.stream = stream;
+				data.stream.onended = options.onEnded;
+				data.src = (window.URL && //generate media source url(blob)
+				            window.URL.createObjectURL(stream)) ||
+				            stream;
+
+				options.handleStream(stream, data.src);
 			}, options.onError);
 		} else {
 			options.onNotSupported();
@@ -34,6 +36,7 @@ var media = (function() {
 			if(navigator.getUserMedia) { return true; } else { return false; }
 		},
 		init: function(userOptions) {
+			if(data.stream.ended == false) { data.stream.stop(); } //stop old stream, if running
 			var emptyFun = function(){};
 
 			//get arguments or uses defaults
@@ -49,6 +52,7 @@ var media = (function() {
 			options.onError = options.onError || emptyFun;
 			options.onSupported = options.onSupported || emptyFun;
 			options.onNotSupported = options.onNotSupported || emptyFun;
+			options.onEnded = options.onEnded || emptyFun;
 
 			options.handleStream = options.handleStream || emptyFun;
 
@@ -57,6 +61,18 @@ var media = (function() {
 		},
 		getOptions: function() {
 			return options;
+		},
+		getStream: function() {
+			return data.stream;
+		},
+		getSource: function() {
+			return data.src;
+		},
+		isAlive: function() {
+			return (data.stream.ended==false)?true:false;
+		},
+		stop: function() {
+			data.stream.stop();
 		}
 	};
 })();

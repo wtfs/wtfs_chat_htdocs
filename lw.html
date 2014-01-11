@@ -29,32 +29,65 @@
 		</section>
 		<section>
 			<article>
-				<button class="small" onclick="start_streaming('video');">broadcast video</button>
-				<button class="small" onclick="start_streaming('screen');">broadcast screen</button><br />
-				<video id="selfvideo" muted controls autoplay height="240" poster="./img/nopic.png" style="display: none"></video>
+				<button id="btn_broadcastvideo" class="small" onclick="start_streaming('video');">broadcast video</button>
+				<button id="btn_broadcastscreen" class="small chrome_only" onclick="start_streaming('screen');">broadcast screen</button><br />
+				<div id="videos">
+				</div>
+				<fieldset><legend><input type="text" placeholder="Your Name" /></legend>
+					<table>
+						<tr>
+							<td>der</td>
+							<td>hi, how are you?</td>
+						</tr>
+						<tr>
+							<td>das</td>
+							<td>I'm fine, all in one</td>
+						</tr>
+					</table>
+				</fieldset
 			</article>
 		</section>
 		<script src="./js/media.js"></script>
 		<script src="./js/browser.js"></script>
 		<script>
 			browser_type();
-			streams={};
+			var resize = function() {
+				var videos = document.getElementsByTagName('video');
+				var width = (document.getElementById('videos').offsetWidth-30)/videos.length;
+				for(var i=0; i<videos.length; i++) { videos[i].width=width; }
+			};
+			var addVideo = function(source, name) {
+				var old = document.getElementById('videos').innerHTML;
+				document.getElementById('videos').innerHTML = old +
+					'<div class="vidCon" id="vidCon_'+name+'">'+
+						'<span class="vidTitle">'+name+'</span>'+
+						'<video muted autoplay poster="./img/nopic.png" id="video_'+name+'" src="'+source+'"></video>'+
+					'</div>';
+				resize();
+			};
+			resize();
+			var stop_streaming = function(what) {
+				media.stop();
+				document.getElementById('btn_broadcast'+what).innerHTML = "broadcast "+what;
+				document.getElementById('btn_broadcast'+what).setAttribute('onclick', 'start_streaming("'+what+'")');
+			};
 			var start_streaming = function(what) {
-				document.getElementById("selfvideo").style.display = "initial";
 				media.init({
 					video: what=="video",
 					audio: false,
 					screen: what=="screen",
 					handleStream: function(stream, src) {
-						if(what=="video") {
-							streams.video=what;
-							streams.video_src=src;
-						}
-						else {
-							streams.screen=what;
-							streams.screen_src=src;
-						}
-						document.getElementById("selfvideo").src = src;
+						//document.getElementById("selfvideo").src = src;
+						var videos = document.getElementsByTagName('video');
+						for(var i=0; i<videos.length; i++) { videos[i].src=src; }
+						document.getElementById('btn_broadcast'+what).innerHTML = "stop streaming "+what;
+						document.getElementById('btn_broadcast'+what).setAttribute('onclick', 'stop_streaming("'+what+'")');
+						addVideo(src, "self");
+					},
+					onEnded: function() {
+						document.getElementById('btn_broadcast'+what).innerHTML = "broadcast "+what;
+						document.getElementById('btn_broadcast'+what).setAttribute('onclick', 'start_streaming("'+what+'")');
+						document.getElementById('vidCon_self').remove();
 					},
 					onError: function(error) {
 						alert("ERROR: " + error);

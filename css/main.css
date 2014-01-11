@@ -111,4 +111,16 @@ p {
 #menu > article > button {
 	width: 100%;
 }
-
+video {
+	display: block;
+}
+.vidTitle {
+	display: block;
+	margin-left: 1.5mm
+}
+.vidCon {
+	border: thin gray solid;
+	border-radius: 3mm;
+	display: inline-block;
+	overflow: hidden;
+}
