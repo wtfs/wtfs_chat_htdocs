@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>wtfs open source video chat</title>
+		<title>LW STUDY HALL</title>
 		<meta name="language" content="en" />
 		<meta name="description" content="This chat is for co-working - we invite everyone who wants to be productive." />
  		<meta name="keywords" content="wtfs, wtfs chitchat, wtfs.de, co-working, video chat, video conference, screensharing, opensource, webrtc, erlang" />
@@ -44,11 +44,12 @@
 							<td>I'm fine, all in one</td>
 						</tr>
 					</table>
-				</fieldset
+				</fieldset>
 			</article>
 		</section>
 		<script src="./js/media.js"></script>
 		<script src="./js/browser.js"></script>
+		<script src="./js/signaling.js"></script>
 		<script>
 			browser_type();
 			var resize = function() {
@@ -57,37 +58,50 @@
 				for(var i=0; i<videos.length; i++) { videos[i].width=width; }
 			};
 			var addVideo = function(source, name) {
-				var old = document.getElementById('videos').innerHTML;
-				document.getElementById('videos').innerHTML = old +
-					'<div class="vidCon" id="vidCon_'+name+'">'+
+				if(document.getElementById('vidCon_'+name) != null) {
+					document.getElementById('video_'+name).src = source;
+				}
+				else {
+					var old = document.getElementById('videos').innerHTML;
+					document.getElementById('videos').innerHTML = old +
+						'<div class="vidCon" id="vidCon_'+name+'">'+
 						'<span class="vidTitle">'+name+'</span>'+
 						'<video muted autoplay poster="./img/nopic.png" id="video_'+name+'" src="'+source+'"></video>'+
-					'</div>';
+						'</div>';
+					resize();
+				}
+			};
+			var removeVideo = function(name) {
+				if(document.getElementById('vidCon_'+name)!=null) {
+					document.getElementById('vidCon_'+name).remove();
+				}
 				resize();
 			};
-			resize();
-			var stop_streaming = function(what) {
+			var stop_streaming = function(mediaType) {
 				media.stop();
-				document.getElementById('btn_broadcast'+what).innerHTML = "broadcast "+what;
-				document.getElementById('btn_broadcast'+what).setAttribute('onclick', 'start_streaming("'+what+'")');
+				removeVideo("self");
+				document.getElementById('btn_broadcast'+mediaType).innerHTML = "broadcast "+mediaType;
+				document.getElementById('btn_broadcast'+mediaType).setAttribute('onclick', 'start_streaming("'+mediaType+'")');
 			};
-			var start_streaming = function(what) {
+			signaling.init({
+				onAddStream: function() {
+					alert('stream added');
+				}
+			});
+			var start_streaming = function(mediaType) {
 				media.init({
-					video: what=="video",
+					video: mediaType=="video",
 					audio: false,
-					screen: what=="screen",
+					screen: mediaType=="screen",
 					handleStream: function(stream, src) {
-						//document.getElementById("selfvideo").src = src;
-						var videos = document.getElementsByTagName('video');
-						for(var i=0; i<videos.length; i++) { videos[i].src=src; }
-						document.getElementById('btn_broadcast'+what).innerHTML = "stop streaming "+what;
-						document.getElementById('btn_broadcast'+what).setAttribute('onclick', 'stop_streaming("'+what+'")');
+						document.getElementById('btn_broadcast'+mediaType).innerHTML = "stop streaming "+mediaType;
+						document.getElementById('btn_broadcast'+mediaType).setAttribute('onclick', 'stop_streaming("'+mediaType+'")');
 						addVideo(src, "self");
 					},
 					onEnded: function() {
-						document.getElementById('btn_broadcast'+what).innerHTML = "broadcast "+what;
-						document.getElementById('btn_broadcast'+what).setAttribute('onclick', 'start_streaming("'+what+'")');
-						document.getElementById('vidCon_self').remove();
+						document.getElementById('btn_broadcast'+mediaType).innerHTML = "broadcast "+mediaType;
+						document.getElementById('btn_broadcast'+mediaType).setAttribute('onclick', 'start_streaming("'+mediaType+'")');
+						(media.getOptions().video==(mediaType=="video"))?removeVideo("self"):function(){};
 					},
 					onError: function(error) {
 						alert("ERROR: " + error);

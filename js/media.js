@@ -14,8 +14,8 @@ var media = (function() {
 			options.onSupported();
 
 			navigator.getUserMedia({
-				video: options.video,
-				audio: options.audio
+				video: data.video,
+				audio: data.audio
 			}, function(stream) {
 				data.stream = stream;
 				data.stream.onended = options.onEnded;
@@ -42,11 +42,11 @@ var media = (function() {
 			//get arguments or uses defaults
 			options = userOptions || {};
 
-			options.video = options.video || false;
-			options.audio = options.audio || false;
+			data.video = options.video || false;
+			data.audio = options.audio || false;
 			if(options.screen) { //screensharing needs a special chrome video source and audio disabled
-				options.video = { mandatory: {chromeMediaSource: 'screen'} };
-				options.audio = false;
+				data.video = { mandatory: {chromeMediaSource: 'screen'} };
+				data.audio = false;
 			}
 
 			options.onError = options.onError || emptyFun;

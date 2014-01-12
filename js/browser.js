@@ -6,6 +6,10 @@
  ******************************************************/
 
 var browser_type = function() {
+	window.RTCPeerConnection =
+		window.RTCPeerConnection ||
+		window.webkitRTCPeerConnection;
+
 	navigator.getUserMedia = //set correct user media prototype
 		navigator.getUserMedia ||
 		navigator.webkitGetUserMedia ||
