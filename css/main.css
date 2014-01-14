@@ -41,6 +41,17 @@ body > section > article > h2 {
 	border-bottom: thin solid #bbb;
 	margin-bottom: 2mm;
 }
+body > section > article > aside {
+	margin-top: 1mm;
+	margin-right: 5mm;
+	text-align: right;
+	font-style: italic;
+	font-size: 75%;
+	color: #777777;
+}
+body > section > article > aside > b {
+	font-style: normal;
+}
 a {
 	transition-property: all;
 	transition-duration: 500ms;
@@ -111,12 +122,15 @@ p {
 #menu > article > button {
 	width: 100%;
 }
+#videos {
+	text-align: center;
+}
 video {
+	max-height: 40%;
 	display: block;
 }
 .vidTitle {
 	display: block;
-	margin-left: 1.5mm
 }
 .vidCon {
 	border: thin gray solid;

@@ -5,30 +5,47 @@
  * browser specific stuff
  ******************************************************/
 
-var browser_type = function() {
-	window.RTCPeerConnection =
-		window.RTCPeerConnection ||
-		window.webkitRTCPeerConnection;
-
-	navigator.getUserMedia = //set correct user media prototype
-		navigator.getUserMedia ||
-		navigator.webkitGetUserMedia ||
-		navigator.mozGetUserMedia ||
-		navigator.oGetUserMedia || //TODO: function test
-		navigator.msGetUserMedia;
-
-	window.URL = //same for url, is needed for stream object
-		window.URL ||
-		window.webkitURL ||
-		window.mozURL ||
-		window.oURL || //TODO: function test
-		window.msURL;
-
-	if(window.chrome !== undefined) {
-		var chrome_only = document.getElementsByClassName("chrome_only");
-		for(var i=0; i<chrome_only.length; i++) {
-			chrome_only[i].style.display = "initial";
+var browser = (function() {
+	function setClassHidded(className) {
+		var elements = document.getElementsByClassName("chrome_only");
+		for(var i=0; i<elements.length; i++) {
+			elements[i].style.display = "none";
 		}
-	} else {
 	}
-}
+
+	function setBrowserPrototypes() {
+		window.RTCPeerConnection =
+			window.RTCPeerConnection ||
+			window.webkitRTCPeerConnection ||
+			window.mozRTCPeerConnection ||
+			window.oRTCPeerConnection || //TODO: testing
+			window.msRTCPeerConnection; //TODO: testing
+
+		navigator.getUserMedia = //set correct user media prototype
+			navigator.getUserMedia ||
+			navigator.webkitGetUserMedia ||
+			navigator.mozGetUserMedia ||
+			navigator.oGetUserMedia || //TODO: function test
+			navigator.msGetUserMedia;
+
+		window.URL = //same for url, is needed for stream object
+			window.URL ||
+			window.webkitURL ||
+			window.mozURL ||
+			window.oURL || //TODO: function test
+			window.msURL;
+	}
+
+	return {
+		init: function() {
+			if(window.chrome === undefined) {
+				setClassHidded('chrome_only');
+			}
+			if(window.location.protocol !== "https:") {
+				setClassHidded('https_only');
+			}
+			setBrowserPrototypes();
+		}
+	};
+})();
+

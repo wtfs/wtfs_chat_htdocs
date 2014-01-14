@@ -5,6 +5,6 @@
  * browser specific stuff
  ******************************************************/
 
+.https_only,
 .chrome_only {
-	display: none;
 }

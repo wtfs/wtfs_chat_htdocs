@@ -30,7 +30,7 @@
 		<section>
 			<article>
 				<button id="btn_broadcastvideo" class="small" onclick="start_streaming('video');">broadcast video</button>
-				<button id="btn_broadcastscreen" class="small chrome_only" onclick="start_streaming('screen');">broadcast screen</button><br />
+				<button id="btn_broadcastscreen" class="small chrome_only https_only" onclick="start_streaming('screen');">broadcast screen <b>*</b></button><br />
 				<div id="videos">
 				</div>
 				<fieldset><legend><input type="text" placeholder="Your Name" /></legend>
@@ -45,13 +45,39 @@
 						</tr>
 					</table>
 				</fieldset>
+				<aside class="chrome_only https_only"><b>*</b> This feature requires »Enable screen capture support in getUserMedia().« enabled in »chrome://flags/#enable-usermedia-screen-capture«</aside>
 			</article>
 		</section>
 		<script src="./js/media.js"></script>
 		<script src="./js/browser.js"></script>
 		<script src="./js/signaling.js"></script>
 		<script>
-			browser_type();
+			browser.init();
+			var capture = new Media({
+				onChanged: function(options) {
+					console.info("change media source");
+					type=(options.video!==true)?"video":"screen";
+					document.getElementById('btn_broadcast'+type).innerHTML = "broadcast "+type;
+					document.getElementById('btn_broadcast'+type).setAttribute('onclick', 'start_streaming("'+type+'")');
+				},
+				onEnded: function(options) {
+					type=(options.video===true)?"video":"screen";
+					console.info("end of capture "+type);
+					document.getElementById('btn_broadcast'+type).innerHTML = "broadcast "+type;
+					document.getElementById('btn_broadcast'+type).setAttribute('onclick', 'start_streaming("'+type+'")');
+					removeVideo("self");
+				},
+				onError: function(error) {
+					console.error("webrtc error: "+error);
+					alert("ERROR: " + error);
+				},
+				onSupported: function() {
+					console.info("webrtc is supported");
+				},
+				onNotSupported: function() {
+					console.error("webrtc is not supported");
+				}
+			});
 			var resize = function() {
 				var videos = document.getElementsByTagName('video');
 				var width = (document.getElementById('videos').offsetWidth-30)/videos.length;
@@ -78,7 +104,7 @@
 				resize();
 			};
 			var stop_streaming = function(mediaType) {
-				media.stop();
+				capture.stop();
 				removeVideo("self");
 				document.getElementById('btn_broadcast'+mediaType).innerHTML = "broadcast "+mediaType;
 				document.getElementById('btn_broadcast'+mediaType).setAttribute('onclick', 'start_streaming("'+mediaType+'")');
@@ -89,27 +115,15 @@
 				}
 			});
 			var start_streaming = function(mediaType) {
-				media.init({
-					video: mediaType=="video",
-					audio: false,
-					screen: mediaType=="screen",
+				capture.start({
 					handleStream: function(stream, src) {
 						document.getElementById('btn_broadcast'+mediaType).innerHTML = "stop streaming "+mediaType;
 						document.getElementById('btn_broadcast'+mediaType).setAttribute('onclick', 'stop_streaming("'+mediaType+'")');
 						addVideo(src, "self");
 					},
-					onEnded: function() {
-						document.getElementById('btn_broadcast'+mediaType).innerHTML = "broadcast "+mediaType;
-						document.getElementById('btn_broadcast'+mediaType).setAttribute('onclick', 'start_streaming("'+mediaType+'")');
-						(media.getOptions().video==(mediaType=="video"))?removeVideo("self"):function(){};
-					},
-					onError: function(error) {
-						alert("ERROR: " + error);
-					},
-					onSupported: function() {
-					},
-					onNotSupported: function() {
-					}
+					video: mediaType=="video",
+					audio: false,
+					screen: mediaType=="screen"
 				});
 			};
 		</script>
