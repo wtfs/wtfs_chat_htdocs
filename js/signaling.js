@@ -5,7 +5,7 @@
  * signaling functions
  ******************************************************/
 
-Signaling = function(optionsIn) {
+Signaling = function(userOptions) {
 /******************************************************
  * variable initialization
  */
@@ -13,29 +13,38 @@ Signaling = function(optionsIn) {
 	var connection;
 	var options = {};
 
-	return {
-		init: function(userOptions) {
-			var emptyFun = function(){};
+	var emptyFun = function(){};
 
-			options = userOptions || {};
-			options.stun = options.stun || "stun2.l.google.com:19302";
+/******************************************************
+ * set defaults if not specified
+ */
+	options = userOptions || {};
+	options.stun = options.stun || "stun2.l.google.com:19302";
 
-			config = {'iceServers': [{'url': 'stun:'+options.stun}]};
-			connection = new RTCPeerConnection(config);
+	config = {'iceServers': [{'url': 'stun:'+options.stun}]};
+	connection = new RTCPeerConnection(config);
 
-			connection.onicecandidate = options.onCandidate = options.onCandidate || emptyFun;
-			connection.onaddstream = options.onAddStream = options.onAddStream || emptyFun;
-			connection.ondatachannel = options.onDataChannel = options.onDataChannel || emptyFun;
-			connection.oniceconnectionstatechange = options.onConnectionStateChange = options.onConnectionStateChange || emptyFun;
-			connection.onnegotiationneeded = options.onNegotiationNeeded = options.onNegotiationNeeded || emptyFun;
-			connection.onremovestream = options.onRemoveStream = options.onRemoveStream || emptyFun;
-			connection.onsignalingstatechange = options.onSignalingStateChange = options.onSignalingStateChange || emptyFun;
-		},
-		getConfig: function() {
-			return config;
-		},
-		getStun: function() {
-			return options.stun;
-		}
+	connection.onicecandidate = options.onCandidate = options.onCandidate || emptyFun;
+	connection.onaddstream = options.onAddStream = options.onAddStream || emptyFun;
+	connection.ondatachannel = options.onDataChannel = options.onDataChannel || emptyFun;
+	connection.oniceconnectionstatechange = options.onConnectionStateChange = options.onConnectionStateChange || emptyFun;
+	connection.onnegotiationneeded = options.onNegotiationNeeded = options.onNegotiationNeeded || emptyFun;
+	connection.onremovestream = options.onRemoveStream = options.onRemoveStream || emptyFun;
+	connection.onsignalingstatechange = options.onSignalingStateChange = options.onSignalingStateChange || emptyFun;
+
+/******************************************************
+ * prototype functions
+ */
+	this.getConfig = function() {
+		return config;
+	};
+	this.getStun = function() {
+		return options.stun;
+	};
+	this.addStream = function(stream) {
+		return connection.addStream(stream);
+	};
+	this.getConnection = function() {
+		return connection;
 	};
 };

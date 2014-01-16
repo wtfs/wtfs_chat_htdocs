@@ -14,8 +14,6 @@ Media = function(optionsIn) {
 
 	/** @private */ var emptyFun = function(){}; //dummy function
 
-	if(data.stream.ended === false) { data.stream.stop(); } //stop old stream, if running
-
 /******************************************************
  * set defaults if not specified
  */
@@ -43,6 +41,7 @@ Media = function(optionsIn) {
 		
 		options.video = (media.video!==undefined)?media.video:options.video;
 		options.audio = (media.audio!==undefined)?media.audio:options.audio;
+		options.screen = (media.audio===true || media.video===true)?false:options.screen;
 		options.screen = (media.screen!==undefined)?media.screen:options.screen;
 		options.onChanged = media.onChanged || options.onChanged;
 		options.onError = media.onError || options.onError;
@@ -91,7 +90,7 @@ Media = function(optionsIn) {
 		return data.stream;
 	};
 	this.getSource = function() {
-		return data.source;
+		return data.src;
 	};
 	this.getOptions = function() {
 		return options;
