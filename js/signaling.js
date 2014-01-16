@@ -1,11 +1,14 @@
 /******************************************************
- * author: Mr. Pi <mrpi@mr-pi.de>
- * copyright: 2014 Mr. Pi
+ * @author: Mr. Pi <mrpi@mr-pi.de>
+ * @copyright: 2014 Mr. Pi
  *-----------------------------------------------------
  * signaling functions
  ******************************************************/
 
-var signaling = (function() {
+Signaling = function(optionsIn) {
+/******************************************************
+ * variable initialization
+ */
 	var config = {};
 	var connection;
 	var options = {};
@@ -35,4 +38,4 @@ var signaling = (function() {
 			return options.stun;
 		}
 	};
-})();
+};

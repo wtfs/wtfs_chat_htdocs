@@ -3,7 +3,7 @@
  * copyright: 2013 Mr. Pi
  *-----------------------------------------------------
  * main stylesheet for open source video chat
- * ****************************************************/
+ ******************************************************/
 
 * {
 	margin: 0px;
@@ -126,7 +126,6 @@ p {
 	text-align: center;
 }
 video {
-	max-height: 40%;
 	display: block;
 }
 .vidTitle {

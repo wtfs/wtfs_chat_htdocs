@@ -4,27 +4,28 @@
 		<meta charset="utf-8" />
 		<title>LW STUDY HALL</title>
 		<meta name="language" content="en" />
-		<meta name="description" content="This chat is for co-working - we invite everyone who wants to be productive." />
- 		<meta name="keywords" content="wtfs, wtfs chitchat, wtfs.de, co-working, video chat, video conference, screensharing, opensource, webrtc, erlang" />
+		<meta name="description" content="This chat is for co-working only - we invite everyone who wants to be productive." />
+ 		<meta name="keywords" content="wtfs, wtfs chitchat, wtfs.de, co-working, video chat, lesswrong, video conference, screensharing, opensource, webrtc, erlang" />
 		<meta name="title" content="wtfs - LW STUDY HALL" />
 		<meta name="author" content="Mr. Pi <mrpi@mr-pi.de>" />
 		<meta name="publisher" content="Mr. Pi" />
 		<meta name="copyright" content="Mr. Pi, 2014" />
-		<meta name="abstract" content="This chat is for co-working - we invite everyone who wants to be productive." />
+		<meta name="abstract" content="This chat is for co-working only - we invite everyone who wants to be productive." />
 		<meta name="page-topic" content="web service" />
 		<meta name="page-type" content="web service" />
-		<meta name="audience" content="students, managers, supervisors, developer" />
+		<meta name="audience" content="students, employees, developer" />
 		<meta name="revisit" content="10 days" />
 		<meta name="revisit-after" content="10 days" />
 		<meta name="robots" content="index, follows" />
 		<link rel="stylesheet" type="text/css" href="./css/button.css" />
 		<link rel="stylesheet" type="text/css" href="./css/browser.css" />
 		<link rel="stylesheet" type="text/css" href="./css/main.css" />
+		<link rel="stylesheet" type="text/css" href="./css/lw.css" />
 	</head>
 	<body>
 		<header>
 			<h1><a href="http://lesswrong.com/" target="_new">LW</a> STUDY HALL</h1>
-			<span><b>Welcome!</b> This chat is for co-working - we invite everyone who wants to be productive.<br />Introduction can be found <a href="https://docs.google.com/document/d/1rN_DJBwfnhSZ_r-9d0zBVrrrSw47ugbtCRaV6__TezA/edit?usp=sharing">here</a></span>
+			<span><b>Welcome!</b> This chat is for co-working only - we invite everyone who wants to be productive.<br />Introduction can be found <a href="https://docs.google.com/document/d/1rN_DJBwfnhSZ_r-9d0zBVrrrSw47ugbtCRaV6__TezA/edit?usp=sharing">here</a></span>
 		</header>
 		</section>
 		<section>
@@ -33,18 +34,26 @@
 				<button id="btn_broadcastscreen" class="small chrome_only https_only" onclick="start_streaming('screen');">broadcast screen <b>*</b></button><br />
 				<div id="videos">
 				</div>
-				<fieldset><legend><input type="text" placeholder="Your Name" /></legend>
-					<table>
-						<tr>
-							<td>der</td>
-							<td>hi, how are you?</td>
-						</tr>
-						<tr>
-							<td>das</td>
-							<td>I'm fine, all in one</td>
-						</tr>
-					</table>
-				</fieldset>
+				<div id="counter">
+					<div style="width:60%;"></div>
+					<div><span>12:30</span></div>
+					<div><span>60% (20min left)</span></div>
+					<div><span>13:02</span></div>
+				</div>
+				<table id="chat">
+					<tr>
+						<td>sname</td>
+						<td>hi, how are you?</td>
+					</tr>
+					<tr>
+						<td>very very long name</td>
+						<td>I'm fine, and you?</td>
+					</tr>
+					<tr>
+						<td><input type="text" placeholder="your name" /></td>
+						<td><input type="text" placeholder="type here and press enter to send" /></td>
+					</tr>
+				</table>
 				<aside class="chrome_only https_only"><b>*</b> This feature requires »Enable screen capture support in getUserMedia().« enabled in »chrome://flags/#enable-usermedia-screen-capture«</aside>
 			</article>
 		</section>
@@ -62,7 +71,7 @@
 				},
 				onEnded: function(options) {
 					type=(options.video===true)?"video":"screen";
-					console.info("end of capture "+type);
+					console.info("end capture "+type);
 					document.getElementById('btn_broadcast'+type).innerHTML = "broadcast "+type;
 					document.getElementById('btn_broadcast'+type).setAttribute('onclick', 'start_streaming("'+type+'")');
 					removeVideo("self");
@@ -70,6 +79,7 @@
 				onError: function(error) {
 					console.error("webrtc error: "+error);
 					alert("ERROR: " + error);
+					removeVideo("self");
 				},
 				onSupported: function() {
 					console.info("webrtc is supported");
@@ -79,11 +89,18 @@
 				}
 			});
 			var resize = function() {
+				console.debug('resize');
 				var videos = document.getElementsByTagName('video');
 				var width = (document.getElementById('videos').offsetWidth-30)/videos.length;
-				for(var i=0; i<videos.length; i++) { videos[i].width=width; }
+				var height = (window.window.innerHeight/100*40);
+				for(var i=0; i<videos.length; i++) { videos[i].removeAttribute("height"); videos[i].width=width; }
+				if(videos.length > 0 && videos[0].offsetHeight > height) {
+					for(var i=0; i<videos.length; i++) { videos[i].removeAttribute("width"); videos[i].height=height; }
+				}
 			};
+			window.onresize = resize;
 			var addVideo = function(source, name) {
+				console.debug("add video "+name);
 				if(document.getElementById('vidCon_'+name) != null) {
 					document.getElementById('video_'+name).src = source;
 				}
@@ -94,10 +111,11 @@
 						'<span class="vidTitle">'+name+'</span>'+
 						'<video muted autoplay poster="./img/nopic.png" id="video_'+name+'" src="'+source+'"></video>'+
 						'</div>';
-					resize();
 				}
+				resize();
 			};
 			var removeVideo = function(name) {
+				console.debug("remove video "+name);
 				if(document.getElementById('vidCon_'+name)!=null) {
 					document.getElementById('vidCon_'+name).remove();
 				}
@@ -109,14 +127,12 @@
 				document.getElementById('btn_broadcast'+mediaType).innerHTML = "broadcast "+mediaType;
 				document.getElementById('btn_broadcast'+mediaType).setAttribute('onclick', 'start_streaming("'+mediaType+'")');
 			};
-			signaling.init({
-				onAddStream: function() {
-					alert('stream added');
-				}
-			});
 			var start_streaming = function(mediaType) {
+				console.debug('start streaming '+mediaType);
+				debugger;
 				capture.start({
 					handleStream: function(stream, src) {
+						console.info("start capture "+mediaType);
 						document.getElementById('btn_broadcast'+mediaType).innerHTML = "stop streaming "+mediaType;
 						document.getElementById('btn_broadcast'+mediaType).setAttribute('onclick', 'stop_streaming("'+mediaType+'")');
 						addVideo(src, "self");
@@ -125,6 +141,10 @@
 					audio: false,
 					screen: mediaType=="screen"
 				});
+			};
+			var setCounter = function(timeRemaining,percent) {
+				document.getElementById("counter").childNodes[1].style.width = percent+"%";
+				document.getElementById("counter").childNodes[5].childNodes[0].innerHTML = percent+"% ("+timeRemaining+"min left)";
 			};
 		</script>
 	</body>

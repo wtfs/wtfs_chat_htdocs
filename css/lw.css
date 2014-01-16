@@ -1,0 +1,75 @@
+/******************************************************
+ * author: Mr. Pi <mrpi@mr-pi.de>
+ * copyright: 2014 Mr. Pi
+ *-----------------------------------------------------
+ * lesswrong
+ ******************************************************/
+
+
+#chat {
+	width: 100%;
+}
+#chat td input {
+	width: 100%;
+}
+#chat td:first-child {
+	text-align: right;
+	font-style: italic;
+	padding-right: 1ex;
+	width: 20%;
+}
+#chat td:first-child input {
+	border: inherit;
+	background: inherit;
+	color: inherit;
+	font-style: inherit;
+	text-align: inherit;
+	outline: none;
+}
+#chat td:first-child input:focus {
+	border-bottom: thin solid blue;
+	text-align: left;
+}
+#chat td:first-child input:hover {
+	border-bottom: thin solid blue;
+}
+#counter {
+	margin: 1mm;
+	height: 1.5em;
+	background: gray;
+	border: thin inset black;
+	position: relative;
+}
+#counter div {
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	padding: 0.15em;
+	padding-right: 1ex;
+	padding-left: 1ex;
+}
+#counter div span {
+	z-index: 9999;
+	background: rgba(170, 170, 170, 0.55);
+	color: #000;
+	border-radius: 1ex;
+	box-shadow: #aaa 0 0 0.4em;
+	padding-right: 1ex;
+	padding-left: 1ex;
+}
+#counter div:nth-child(1) {
+	padding: 0px;
+	background: #300;
+}
+#counter div:nth-child(2) {
+	text-align: left;
+}
+#counter div:nth-child(3) {
+	text-align: center;
+}
+#counter div:nth-child(4) {
+	text-align: right;
+}

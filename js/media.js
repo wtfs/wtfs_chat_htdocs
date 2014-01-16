@@ -9,7 +9,7 @@ Media = function(optionsIn) {
 /******************************************************
  * variable initialization
  */
-	/** @private */	var data = {stream: {}, src: undefined};
+	/** @private */	var data = {stream: {}, src: undefined, video: false, audio: false};
 	/** @private */ var options = optionsIn || {};
 
 	/** @private */ var emptyFun = function(){}; //dummy function
@@ -51,8 +51,8 @@ Media = function(optionsIn) {
 		options.onEnded = media.onEnded || options.onEnded;
 		options.handleStream = media.handleStream || options.handleStream;
 
-		data.video = options.video || data.video;
-		data.audio = options.audio || data.audio;
+		data.video = options.video;
+		data.audio = options.audio;
 		if(options.screen) {
 			options.video = false;
 			options.audio = false;
