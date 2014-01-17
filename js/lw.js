@@ -72,6 +72,15 @@ var lw = (function() {
 				console.error("webrtc is not supported");
 			}
 		});
+		signaling = new Signaling({
+			onCandidate: function(evt) { debugger; console.debug('signaling onCandidate'); },
+			onAddStream: function(evt) { debugger; console.debug('signaling onAddStream'); },
+			onDataChannel: function(evt) { debugger; console.debug('signaling onDataChannel'); },
+			onConnectionStateChange: function(evt) { debugger; console.debug('signaling onConnectionStateChange'); },
+			onNegotiationNeeded: function(evt) { debugger; console.debug('signaling onNegotiationNeeded'); },
+			onRemoveStream: function(evt) { debugger; console.debug('signaling onRemoveStream'); },
+			onSignalingStateChange: function(evt) { debugger; console.debug('signaling onSignalingStateChange'); }
+		});
 	};
 	return {
 		addvid: function(src, name) {
@@ -91,11 +100,13 @@ var lw = (function() {
 		},
 		start_streaming: function(mediaType) {
 			console.debug('start streaming '+mediaType);
+			addVideo('', "self");
 			capture.start({
 				handleStream: function(stream, src) {
 					console.info("start capture "+mediaType);
 					document.getElementById('btn_broadcast'+mediaType).innerHTML = "stop streaming "+mediaType;
 					document.getElementById('btn_broadcast'+mediaType).setAttribute('onclick', 'lw.stop_streaming("'+mediaType+'")');
+					signaling.addStream(stream);
 					addVideo(src, "self");
 				},
 				video: mediaType=="video",
