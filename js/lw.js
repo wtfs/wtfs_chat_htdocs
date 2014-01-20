@@ -72,15 +72,7 @@ var lw = (function() {
 				console.error("webrtc is not supported");
 			}
 		});
-		signaling = new Signaling({
-			onCandidate: function(evt) { debugger; console.debug('signaling onCandidate'); },
-			onAddStream: function(evt) { debugger; console.debug('signaling onAddStream'); },
-			onDataChannel: function(evt) { debugger; console.debug('signaling onDataChannel'); },
-			onConnectionStateChange: function(evt) { debugger; console.debug('signaling onConnectionStateChange'); },
-			onNegotiationNeeded: function(evt) { debugger; console.debug('signaling onNegotiationNeeded'); },
-			onRemoveStream: function(evt) { debugger; console.debug('signaling onRemoveStream'); },
-			onSignalingStateChange: function(evt) { debugger; console.debug('signaling onSignalingStateChange'); }
-		});
+		signaling = new Signaling();
 	};
 	return {
 		addvid: function(src, name) {
