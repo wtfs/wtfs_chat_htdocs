@@ -8,6 +8,8 @@
 var lw = (function() {
 	var capture;
 	var signaling;
+
+	/* risize all video elements to a lesswronger size */
 	var resize = function() {
 		console.debug('resize');
 		var videos = document.getElementsByTagName('video');
@@ -23,6 +25,8 @@ var lw = (function() {
 			for(i=0; i<videos.length; i++) { videos[i].removeAttribute("width"); videos[i].height=height; }
 		}
 	};
+
+	/* add a new video element to browser view */
 	var addVideo = function(source, name) {
 		console.debug("add video "+name);
 		if(document.getElementById('vidCon_'+name) !== null) {
@@ -38,6 +42,8 @@ var lw = (function() {
 		}
 		resize();
 	};
+
+	/* remove video element 'name' from browser view */
 	var removeVideo = function(name) {
 		console.debug("remove video "+name);
 		if(document.getElementById('vidCon_'+name)!==null) {
@@ -45,8 +51,10 @@ var lw = (function() {
 		}
 		resize();
 	};
+
+	/* generate base objects */
 	var prepare_lw = function() {
-		capture = new Media({
+		capture = new Media({  //generate WebRTC capture object, don't start_streaming
 			onChanged: function(options) {
 				console.info("change media source");
 				type=(options.video!==true)?"video":"screen";
@@ -72,8 +80,10 @@ var lw = (function() {
 				console.error("webrtc is not supported");
 			}
 		});
-		signaling = new Signaling();
+		signaling = new Signaling();  //generate Signaling object
 	};
+
+	/* browser view callback */
 	return {
 		addvid: function(src, name) {
 			addVideo(src, name);
@@ -106,9 +116,11 @@ var lw = (function() {
 				screen: mediaType=="screen"
 			});
 		},
-		setCounter: function(timeRemaining,percent) {
+		setCounter: function(timeRemaining,percent,startT,endT) {
 			document.getElementById("counter").childNodes[1].style.width = percent+"%";
 			document.getElementById("counter").childNodes[5].childNodes[0].innerHTML = percent+"% ("+timeRemaining+"min left)";
+			if(startT !== undefined) { document.getElementById("counter").childNodes[3].childNodes[0].innerHTML = startT; }
+			if(endT !== undefined) { document.getElementById("counter").childNodes[7].childNodes[0].innerHTML = endT; }
 		}
 	};
 })();
