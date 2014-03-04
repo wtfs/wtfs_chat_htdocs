@@ -1,60 +1,81 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
-		<title>wtfs open source video chat</title>
+		<meta charset="utf-8" />
+		<title>LW STUDY HALL</title>
 		<meta name="language" content="en" />
-		<meta name="description" content="an open source video chat/conference solution, no extra plugins or extensions are required" />
- 		<meta name="keywords" content="wtfs, wtfs chitchat, wtfs.de, video chat, video conference, screensharing, opensource, webrtc, erlang" />
-		<meta name="title" content="wtfs - an open source video chat and conference" />
-		<meta name="author" content="Mr. Pi <mrpi@mr-pi.de>" />
+		<meta name="description" content="This chat is for co-working only - we invite everyone who wants to be productive." />
+ 		<meta name="keywords" content="wtfs, wtfs chitchat, wtfs.de, co-working, video chat, lesswrong, video conference, screensharing, opensource, webrtc, erlang" />
+		<meta name="title" content="wtfs - LW STUDY HALL" />
+		<meta name="author" content="Mr. Pi <webmaster@mr-pi.de>" />
 		<meta name="publisher" content="Mr. Pi" />
-		<meta name="copyright" content="Mr. Pi, 2013" />
-		<meta name="abstract" content="an open source video chat solution" />
+		<meta name="copyright" content="Mr. Pi, 2014" />
+		<meta name="abstract" content="This chat is for co-working only - we invite everyone who wants to be productive." />
 		<meta name="page-topic" content="web service" />
 		<meta name="page-type" content="web service" />
-		<meta name="audience" content="students, managers, supervisors, developer" />
-		<meta name="revisit" content="30 days" />
-		<meta name="revisit-after" content="30 days" />
+		<meta name="audience" content="students, employees, developer" />
+		<meta name="revisit" content="10 days" />
+		<meta name="revisit-after" content="10 days" />
 		<meta name="robots" content="index, follows" />
-		<link rel="stylesheet" type="text/css" href="/css/button.css" />
-		<link rel="stylesheet" type="text/css" href="/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="./css/button.css" />
+		<link rel="stylesheet" type="text/css" href="./css/browser.css" />
+		<link rel="stylesheet" type="text/css" href="./css/main.css" />
+		<link rel="stylesheet" type="text/css" href="./css/lw.css" />
 	</head>
 	<body>
 		<header>
-			<h1>wtfs professional chitchat</h1>
-			<span>an open source video chat/conference solution, no extra plugins or extensions are required</span>
+			<h1><a href="http://lesswrong.com/" target="_blank">LW</a> STUDY HALL</h1>
+			<span><b>Welcome!</b> This chat is for co-working only - we invite everyone who wants to be productive.<br /></span>
 		</header>
-		<section id="about">
-			<article>
-				<h2>About</h2>
-				<div class="column_3">
-					<p><a href="http://chat.wtfs.de">wtfs chitchat</a> is an <a href="https://en.wikipedia.org/wiki/Open_source">opensource</a> video chat and video conference service. <a href="http://chat.wtfs.de">wtfs chitchat</a> uses the new <a href="https://en.wikipedia.org/wiki/Html5">HTML5</a> web standard <a href="https://en.wikipedia.org/wiki/Webrtc">Webrtc</a> , which is available on most modern browsers.</p>
-					<p>In addition to Video and Audio streaming, <a href="http://chat.wtfs.de">wtfs chitchat</a> provides a <a href="https://en.wikipedia.org/wiki/Plug-in_(computing)">pluginfree </a> screen sharing(<a href="https://en.wikipedia.org/wiki/Screen_sharing">screensharing</a>) option, this option is only available on <a href="https://en.wikipedia.org/wiki/Chromium_(web_browser)">Chromium</a> and <a href="https://en.wikipedia.org/wiki/Google_Chrome">Google Chrome</a>.</p>
-					<p>All <a href="https://en.wikipedia.org/wiki/Client_(computing)">client</a> site executed code is written in plain <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> without <a href="https://en.wikipedia.org/wiki/CoffeeScript">CoffeeScript</a> or other auto generated code. The <a href="https://en.wikipedia.org/wiki/Server_(computing)">Server</a> is written in <a href="https://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang OTP</a>.</p>
-					<p>Both the <a href="https://en.wikipedia.org/wiki/Client_(computing)">client</a> <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> <a href="https://en.wikipedia.org/wiki/Source_code">Souce Code</a> and the <a href="https://en.wikipedia.org/wiki/Server_(computing)">Server</a> <a href="https://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a> <a href="https://en.wikipedia.org/wiki/Source_code">Souce Code</a> is available on <a href="https://github.com/wtfs/wtfs_chat">github</a>.</p>
+		<section>
+			<article id="introduction">
+				<header><h2>Introduction</h2></header>
+				<h3>Information for first-timers:</h3>
+				<ul>
+						<li>First of all - Welcome!</li>
+						<li><a href="http://lesswrong.com/lw/gwo/coworking_collaboration_to_combat_akrasia/">This</a> post that was the initial start towards this type of co-working to beat akrasia, resulting in this chat room.</li>
+						<li>We work in “<a href="http://en.wikipedia.org/wiki/Pomodoro_Technique">pomodoros</a>”</li>
+						<li>There are no strict rules to follow. Generally upon entering you can either introduce yourself and a little about what you will (or would want to) work with or you can ask others what they are working with. Rather do this on the breaks.</li>
+				</ul>
+				<p>I would like to remind you all that this place is what we make it to be. I think we should be friendly and especially encouraging to new users who may need that extra push to get on the right track.</p>
+				<p>High-held values in the chat room should be those that correlate with akrasia-management – you are freely allowed to brag about how many pomodoros you did and what you accomplished by working. Those who do well and are satisfied with their work should be respected and given credit for their performance.</p>
+				<p>The chat room should constantly improve. It should be improving in the “fun-ness” and precommitment that encourage returning to it and akrasia-management to ensure maximal gain while being there.</p>
+			</article>
+			<article id="pomo_summary">
+				<header><h2>Available Work Groups</h2></header>
+				<div class="pomo_preview">
+					<span>Work Time: 32min, Break Time: 8min, Online Users: 4</span><button id="pomo_enter_t1" class="small" onclick="alert('nyi');">enter</button>
+					<div class="counter" id="counter_t1">
+						<div style="width:60%;"></div>
+						<div><span>12:30</span></div>
+						<div><span>60% (20min left)</span></div>
+						<div><span>13:02</span></div>
+					</div>
+					<hr />
+					<span>Work Time: 32min, Break Time: 8min, Online Users: 4</span><button id="pomo_enter_t2" class="small" onclick="alert('nyi');">enter</button>
+					<div class="counter" id="counter_t2">
+						<div style="width:60%;"></div>
+						<div><span>12:30</span></div>
+						<div><span>60% (20min left)</span></div>
+						<div><span>13:02</span></div>
+					</div>
+					<hr />
+					<span>Work Time: 32min, Break Time: 8min, Online Users: 4</span><button id="pomo_enter_t3" class="small" onclick="alert('nyi');">enter</button>
+					<div class="counter" id="counter_t3">
+						<div style="width:60%;"></div>
+						<div><span>12:30</span></div>
+						<div><span>60% (20min left)</span></div>
+						<div><span>13:02</span></div>
+					</div>
 				</div>
 			</article>
 		</section>
-		<section id="menu">
-			<article>
-				<h2>Video Conference</h2>
-				<p>2 or more, bla fassel bla bla supervisors students developers manager bla bla</p>
-				<input placeholder="Room Name" />
-				<button>Join</button>
-			</article>
-			<article>
-				<h2>Video Streaming</h2>
-				<p>Send your screen capture or webcam image to ……………</p>
-				<input placeholder="Room Name" />
-				<button onclick="window.location='/cam.html'">Join</button>
-			</article>
-			<article>
-				<h2>File Sharing</h2>
-				<p>Send one or more File(s) to ……………</p>
-				<input placeholder="Transaktion Code" />
-				<button>Join</button>
-			</article>
-		</section>
+		<script src="./js/media.js"></script>
+		<script src="./js/browser.js"></script>
+		<script src="./js/signaling.js"></script>
+		<script src="./js/lw.js"></script>
+		<script>
+			lw.init();
+		</script>
 	</body>
 </html>

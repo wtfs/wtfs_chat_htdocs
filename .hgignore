@@ -3,3 +3,5 @@ syntax: regexp
 ^\..*\.swp$
 ^doc\/.*
 ^log\/.*
+^\.sass-cache\/.*
+^Gemfile\.lock

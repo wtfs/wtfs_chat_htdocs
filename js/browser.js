@@ -7,13 +7,20 @@
 
 var browser = (function() {
 	function setClassHidded(className) {
-		var elements = document.getElementsByClassName("chrome_only");
+		var elements = document.getElementsByClassName(className);
 		for(var i=0; i<elements.length; i++) {
 			elements[i].style.display = "none";
 		}
 	}
 
 	function setBrowserPrototypes() {
+		window.WebSocket = //TODO: testing
+			window.WebSocket || //TODO: testing
+			window.webkitwWebSocket || //TODO: testing
+			window.mozWebSocket || //TODO: testing
+			window.oWebSocket || //TODO: testing
+			window.msWebSocket; //TODO: testing
+
 		window.RTCPeerConnection =
 			window.RTCPeerConnection ||
 			window.webkitRTCPeerConnection ||

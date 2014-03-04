@@ -106,9 +106,9 @@ var lw = (function() {
 				screen: mediaType=="screen"
 			});
 		},
-		setCounter: function(timeRemaining,percent) {
-			document.getElementById("counter").childNodes[1].style.width = percent+"%";
-			document.getElementById("counter").childNodes[5].childNodes[0].innerHTML = percent+"% ("+timeRemaining+"min left)";
+		setCounter: function(timeRemaining,percent,counter) {
+			document.getElementById("counter_"+counter).childNodes[1].style.width = percent+"%";
+			document.getElementById("counter_"+counter).childNodes[5].childNodes[0].innerHTML = percent+"% ("+timeRemaining+"min left)";
 		}
 	};
 })();

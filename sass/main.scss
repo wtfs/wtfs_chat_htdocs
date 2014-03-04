@@ -1,0 +1,150 @@
+/******************************************************
+ * author: Mr. Pi <mrpi@mr-pi.de>
+ * copyright: 2013 Mr. Pi
+ *-----------------------------------------------------
+ * main stylesheet for open source video chat
+ ******************************************************/
+
+$bg: #d0d0d0;
+$normal-color: black;
+$link-color: #0000ff;
+
+@mixin box-layout($layout: horizontal) {
+	display:         box;
+	display:    -moz-box;
+	display: -webkit-box;
+	        box-orient: $layout;
+	   -moz-box-orient: $layout;
+	-webkit-box-orient: $layout;
+}
+
+@mixin box($width: 1) {
+	        box-flex: $width;
+	   -moz-box-flex: $width;
+	-webkit-box-flex: $width;
+	width: 100%;
+}
+
+body {
+	background: $bg;
+	margin: 0px;
+	padding: 0px;
+	header {
+		background: mix($bg,#000,10%);
+		color: mix($normal-color,#fff,10%);
+		display: block;
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		padding: 3mm;
+	}
+	section {
+		@include box-layout;
+		width: 100%;
+		article {
+			@include box;
+			margin: 3mm;
+			border: thin solid mix($bg,#000,10%);
+			padding: 3mm;
+			hr {
+				border: 0px;
+				border-bottom: thin solid mix($bg,#000,10%);
+				margin-left: -1.5mm;
+				margin-right: -1.5mm;
+			}
+			aside {
+				margin-top: 1mm;
+				margin-right: 5mm;
+				text-align: right;
+				font-style: italic;
+				font-size: 75%;
+				color: #777777;
+				b {
+					font-style: normal;
+				}
+			}
+			&#pomo_summary {
+				width: 900px;
+				button {
+				}
+			}
+		}
+	}
+}
+a {
+	transition-property: all;
+	transition-duration: 500ms;
+	transition-timing-function: ease-in-out;
+	text-decoration: none;
+	color: inherit;
+	font-style: italic;
+	border-bottom: thin solid rgba(30,220,0,0);
+	&:active,
+	&:focus,
+	&:hover {
+		border-bottom: thin solid $link-color;
+	}
+}
+p {
+	margin-bottom: 1em;
+}
+
+/* video elements */
+#videos {
+	text-align: center;
+}
+video {
+	display: block;
+}
+.vidTitle {
+	display: block;
+}
+.vidCon {
+	border: thin gray solid;
+	border-radius: 3mm;
+	display: inline-block;
+	overflow: hidden;
+}
+
+/* counter */
+.counter {
+	margin: 1mm;
+	height: 1.5em;
+	background: gray;
+	border: thin inset black;
+	position: relative;
+	div {
+		display: block;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		padding: 0.15em;
+		padding-right: 1ex;
+		padding-left: 1ex;
+		&:nth-child(1) {
+			padding: 0px;
+			background: #300;
+		}
+		&:nth-child(2) {
+			text-align: left;
+		}
+		&:nth-child(3) {
+			text-align: center;
+		}
+		&:nth-child(4) {
+			text-align: right;
+		}
+		span {
+			z-index: 9999;
+			background: rgba(170, 170, 170, 0.55);
+			color: #000;
+			border-radius: 1ex;
+			box-shadow: #aaa 0 0 0.4em;
+			padding-right: 1ex;
+			padding-left: 1ex;
+		}
+	}
+}
