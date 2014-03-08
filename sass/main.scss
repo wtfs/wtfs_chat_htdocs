@@ -8,6 +8,7 @@
 $bg: #d0d0d0;
 $normal-color: black;
 $link-color: #0000ff;
+$link-color-visited: #ff6000;
 
 @mixin box-layout($layout: horizontal) {
 	display:         box;
@@ -29,6 +30,21 @@ body {
 	background: $bg;
 	margin: 0px;
 	padding: 0px;
+	a {
+		outline: none;
+		transition-property: all;
+		transition-duration: 250ms;
+		transition-timing-function: ease-in-out;
+		text-decoration: none;
+		color: $link-color;
+		font-style: italic;
+		border-bottom: thin solid rgba(30,220,0,0);
+		&:active,
+		&:focus,
+		&:hover {
+			border-bottom: thin solid $link-color;
+		}
+	}
 	header {
 		background: mix($bg,#000,10%);
 		color: mix($normal-color,#fff,10%);
@@ -36,6 +52,14 @@ body {
 		* {
 			margin: 0px;
 			padding: 0px;
+			color: inherit;
+		}
+		#logo {
+			position: absolute;
+			display: block;
+			right: 5mm;
+			top: 5mm;
+			height: 1cm;
 		}
 		padding: 3mm;
 	}
@@ -64,47 +88,105 @@ body {
 					font-style: normal;
 				}
 			}
-			&#pomo_summary {
-				width: 900px;
-				button {
+			p {
+				margin-bottom: 1em;
+			}
+			a:visited {
+				color: $link-color-visited;
+			}
+		}
+	}
+}
+
+/* overview */
+#pomo_summary {
+	width: 900px;
+	div {
+		clear: both;
+		&.fleft,
+		&.fright {
+			clear: none;
+			height: 8mm;
+			margin: 1mm;
+			margin-bottom: 0px;
+			vertical-align: middle;
+			* {
+				vertical-align: middle;
+				margin: auto;
+			}
+		}
+		&.fleft {
+			float: left;
+		}
+		&.fright {
+			float: right;
+		}
+		&.user_list {
+			margin: 0px;
+			margin-left: 1mm;
+			margin-right: 1mm;
+			color: mix($normal-color, $bg);
+			font-style: italic;
+		}
+	}
+}
+
+/* chat window */
+#chat {
+	width: 100%;
+	td {
+		input {
+			width: 100%;
+		}
+		&:first-child {
+			text-align: right;
+			font-style: italic;
+			padding-right: 1ex;
+			width: 20%;
+			input {
+				border: inherit;
+				background: inherit;
+				color: inherit;
+				font-style: inherit;
+				text-align: inherit;
+				outline: none;
+				&:active,
+				&:focus {
+					border-bottom: thin solid blue;
+					text-align: left;
+				}
+				&:hover {
+					border-bottom: thin solid blue;
 				}
 			}
 		}
 	}
 }
-a {
-	transition-property: all;
-	transition-duration: 500ms;
-	transition-timing-function: ease-in-out;
-	text-decoration: none;
-	color: inherit;
-	font-style: italic;
-	border-bottom: thin solid rgba(30,220,0,0);
-	&:active,
-	&:focus,
-	&:hover {
-		border-bottom: thin solid $link-color;
-	}
+
+
+#welcome {
+
 }
-p {
-	margin-bottom: 1em;
+
+#running {
+
 }
 
 /* video elements */
 #videos {
 	text-align: center;
 }
-video {
-	display: block;
-}
-.vidTitle {
-	display: block;
-}
 .vidCon {
 	border: thin gray solid;
 	border-radius: 3mm;
 	display: inline-block;
 	overflow: hidden;
+	video {
+		display: block;
+	}
+	.vidTitle {
+		display: block;
+	}
 }
 
 /* counter */

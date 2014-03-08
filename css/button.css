@@ -7,7 +7,6 @@
 
 button {
 	outline: none;
-	margin-top: 2.5mm;
 	font-size: 7.5mm;
 	border-radius: 2.5mm;
 	display: inline-block;
@@ -61,7 +60,7 @@ button:active {
 		color-stop(0.50, #8db116),
 		to(#6d8000));
 	box-shadow:
-		-2mm -2mm 2mm rgba(000,000,000,0.5),
+		-1mm -1mm 1mm rgba(000,000,000,0.5),
 		inset 0px 0px 2mm rgba(127,127,127,1);
 	text-shadow:
 		0.6mm 0.6mm 0px rgba(000,000,000,0.2),

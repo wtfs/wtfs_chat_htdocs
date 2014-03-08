@@ -20,14 +20,14 @@
 		<link rel="stylesheet" type="text/css" href="./css/button.css" />
 		<link rel="stylesheet" type="text/css" href="./css/browser.css" />
 		<link rel="stylesheet" type="text/css" href="./css/main.css" />
-		<link rel="stylesheet" type="text/css" href="./css/lw.css" />
 	</head>
 	<body>
 		<header>
 			<h1><a href="http://lesswrong.com/" target="_blank">LW</a> STUDY HALL</h1>
 			<span><b>Welcome!</b> This chat is for co-working only - we invite everyone who wants to be productive.<br /></span>
+			<a href="http://lesswrong.com/" target="_blank" id="logo"><img src="./img/lw_logo_trans.png" alt="lesswrong" /></a>
 		</header>
-		<section>
+		<section id="welcome">
 			<article id="introduction">
 				<header><h2>Introduction</h2></header>
 				<h3>Information for first-timers:</h3>
@@ -44,30 +44,67 @@
 			<article id="pomo_summary">
 				<header><h2>Available Work Groups</h2></header>
 				<div class="pomo_preview">
-					<span>Work Time: 32min, Break Time: 8min, Online Users: 4</span><button id="pomo_enter_t1" class="small" onclick="alert('nyi');">enter</button>
+					<div class="fleft"><b>25/5</b> — Online Users: 7</div>
+					<div class="fright"><input type="text" name="nickname" placeholder="your nickname" onkeypress="sync_own_nick()" /><button id="pomo_enter_t1" class="small" onclick="alert('nyi');">enter</button></div>
+					<div class="user_list">max, peter, dieter, klaus, ralf, mozi, klugscheißer</div>
 					<div class="counter" id="counter_t1">
-						<div style="width:60%;"></div>
-						<div><span>12:30</span></div>
-						<div><span>60% (20min left)</span></div>
-						<div><span>13:02</span></div>
+						<div style="width:60%; background: darkgreen"></div>
+						<div><span>12:50</span></div>
+						<div><span>60% (2min left)</span></div>
+						<div><span>12:55</span></div>
 					</div>
-					<hr />
-					<span>Work Time: 32min, Break Time: 8min, Online Users: 4</span><button id="pomo_enter_t2" class="small" onclick="alert('nyi');">enter</button>
+				</div>
+				<hr />
+				<div class="pomo_preview">
+					<div class="fleft"><b>32/8</b> — Online Users: 10</div>
+					<div class="fright"><input type="text" name="nickname" placeholder="your nickname" onkeypress="sync_own_nick()" /><button id="pomo_enter_t2" class="small" onclick="alert('nyi');">enter</button></div>
+					<div class="user_list">monika, gabi, rohland, monique, kopf, erika, sydnay, hochland, kirsten, friedika</div>
 					<div class="counter" id="counter_t2">
-						<div style="width:60%;"></div>
+						<div style="width:80%;"></div>
 						<div><span>12:30</span></div>
-						<div><span>60% (20min left)</span></div>
-						<div><span>13:02</span></div>
-					</div>
-					<hr />
-					<span>Work Time: 32min, Break Time: 8min, Online Users: 4</span><button id="pomo_enter_t3" class="small" onclick="alert('nyi');">enter</button>
-					<div class="counter" id="counter_t3">
-						<div style="width:60%;"></div>
-						<div><span>12:30</span></div>
-						<div><span>60% (20min left)</span></div>
+						<div><span>80% (20min left)</span></div>
 						<div><span>13:02</span></div>
 					</div>
 				</div>
+				<hr />
+				<div class="pomo_preview">
+					<div class="fleft"><b>50/10</b> — Online Users: 0</div>
+					<div class="fright"><input type="text" name="nickname" placeholder="your nickname" onkeypress="sync_own_nick()" /><button id="pomo_enter_t3" class="small" onclick="alert('nyi');">enter</button></div>
+					<div class="user_list"></div>
+					<div class="counter" id="counter_t3">
+						<div style="width:29%;"></div>
+						<div><span>12:30</span></div>
+						<div><span>29% (20min left)</span></div>
+						<div><span>13:02</span></div>
+					</div>
+				</div>
+			</article>
+		</section>
+		<section id="running">
+			<article>
+				<header><h2 id="pomo_titel">Test Pomo</h2></header>
+				<div class="counter" id="counter_running">
+					<div style="width:60%;"></div>
+					<div><span>12:30</span></div>
+					<div><span>60% (20min left)</span></div>
+					<div><span>13:02</span></div>
+				</div>
+				<div id="videos"></div>
+				<table id="chat">
+					<tr>
+						<td>sname</td>
+						<td>hi, how are you?</td>
+					</tr>
+					<tr>
+						<td>very very long name</td>
+						<td>I'm fine, and you?</td>
+					</tr>
+					<tr>
+						<td><input onkeypress="alert()" type="text" placeholder="your name" /></td>
+						<td><input type="text" placeholder="type here and press enter to send" /></td>
+					</tr>
+				</table>
+				<aside class="chrome_only https_only"><b>*</b> This feature requires »Enable screen capture support in getUserMedia().« enabled in »chrome://flags/#enable-usermedia-screen-capture«</aside>
 			</article>
 		</section>
 		<script src="./js/media.js"></script>
@@ -75,6 +112,9 @@
 		<script src="./js/signaling.js"></script>
 		<script src="./js/lw.js"></script>
 		<script>
+			var sync_own_nick = function() {
+				document.getElementsByName(
+			}
 			lw.init();
 		</script>
 	</body>

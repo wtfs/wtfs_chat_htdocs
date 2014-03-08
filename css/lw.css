@@ -6,30 +6,3 @@
  ******************************************************/
 
 
-#chat {
-	width: 100%;
-}
-#chat td input {
-	width: 100%;
-}
-#chat td:first-child {
-	text-align: right;
-	font-style: italic;
-	padding-right: 1ex;
-	width: 20%;
-}
-#chat td:first-child input {
-	border: inherit;
-	background: inherit;
-	color: inherit;
-	font-style: inherit;
-	text-align: inherit;
-	outline: none;
-}
-#chat td:first-child input:focus {
-	border-bottom: thin solid blue;
-	text-align: left;
-}
-#chat td:first-child input:hover {
-	border-bottom: thin solid blue;
-}
